@@ -1,0 +1,4 @@
+{
+  "presets": ["react-app", "mobx", "@babel/flow"],
+  "plugins": ["@babel/plugin-proposal-decorators"]
+}
