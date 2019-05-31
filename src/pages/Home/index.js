@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import PostsStore from "../../stores/Posts";
-import { PostCard, Thumbnail } from "./style";
+import { PostCard, Thumbnail, ButtonContainer } from "./style";
 import When from "../../components/When";
 
 type Props = {
@@ -12,7 +13,8 @@ type Props = {
 
 class Home extends Component<Props> {
   componentDidMount() {
-    this.props.postsStore.getPosts();
+    const {postsStore} = this.props
+    if (!postsStore.posts.length) postsStore.getPosts();
   }
 
   renderPost = ({ title, url, id, content }) => {
@@ -48,8 +50,8 @@ class Home extends Component<Props> {
             Loading ...
           </When>
           <When is={postsStore.posts.length}>
+            <ButtonContainer><Link to="details">Add new Post</Link></ButtonContainer>
             {this.renderPosts()}
-            <p onClick={() => postsStore.addPost()}>click me</p>
           </When>
         </Row>
       </Container>

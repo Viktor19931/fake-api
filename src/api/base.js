@@ -13,7 +13,10 @@ export const request = async (
   return axios({
     url,
     method,
-    data
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    },
+    data: JSON.stringify(data)
   });
 };
 

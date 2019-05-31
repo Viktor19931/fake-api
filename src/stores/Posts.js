@@ -13,7 +13,7 @@ class Store {
       .getPostsRequest()
       .then(({ data }) => {
         console.log(data);
-        this.posts = data.posts;
+        this.posts = data;
         this.loading = false;
       })
       .catch(err => {
@@ -22,17 +22,16 @@ class Store {
       });
   };
 
-  addPost = () => {
-    const data = {
-      id: 4,
-      title: "sdgfdg",
-      content: "fdsgfdg",
-      url: "ffddfgrgsdfg"
+  addPost = (data: Object) => {
+    const result = {
+      ...data,
+      url:
+        "https://images.pexels.com/photos/237018/pexels-photo-237018.jpeg?cs=srgb&dl=asphalt-beauty-colorful-237018.jpg&fm=jpg"
     };
     posts
-      .addPostRequest(data)
-      .then(resp => console.log(resp))
-      .catch(err => console.log("error",err.response));
+      .addPostRequest(result)
+      .then(post => this.posts.unshift(post))
+      .catch(err => console.log("error", err.response));
   };
 }
 
